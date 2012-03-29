@@ -1,3 +1,17 @@
-Tornado example for python-sdk
+Tornado example from python-sdk
+*Python2.7
 
-change example.py
+set your OS environment variable
+
+[Windows}
+setenv FB_ID="your facebook develper ID"
+setenv FB_SECRET="your facebook develper FB_SECRET"
+
+[MacOSX}
+set FB_ID="your facebook develper ID"
+set FB_SECRET="your facebook develper FB_SECRET"
+
+
+later
+---
+python example.py
