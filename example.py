@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+# -*- coding: utf-8 -*-
 #
 # Copyright 2010 Facebook
 #
@@ -32,14 +33,24 @@ from tornado.options import define, options
 from models import dbsession, engine, metadata #models.py
 from sqlalchemy import Table, Column, String, Integer, MetaData, select, func
 from sqlalchemy.sql import table, column
+import os
 
+FB_ID = os.environ.get('FB_ID', "default")
+FB_SECRET = os.environ.get('FB_SECRET', "default")
 define("port", default=8888, help="run on the given port", type=int)
-define("facebook_app_id", default="", help="Facebook Application ID")
-define("facebook_app_secret", default="", help="Facebook Application Secret")
+define("facebook_app_id", default=FB_ID , help="Facebook Application ID")
+define("facebook_app_secret", default=FB_SECRET, help="Facebook Application Secret")
 #define("mysql_host", help="MySQL database host")
 #define("mysql_database", help="MySQL database database")
 #define("mysql_user", help="MySQL database user")
 #define("mysql_password", help="MySQL database password")
+
+""" prepare
+try: 
+    unicode # python2
+except: # python3
+    pass
+"""
 
 class BaseHandler(tornado.web.RequestHandler):
     """Implements authentication via the Facebook JavaScript SDK cookie."""
@@ -57,10 +68,11 @@ class BaseHandler(tornado.web.RequestHandler):
         #user = self.db.engine.execute(sql, (cookie["uid"]))
         users = Table('users', metadata, autoload=True)
         s = users.select(users.c.id == cookie["uid"])
-	rs = s.execute()
-	user = rs.fetchone()
-        print user 
-        if not user:
+        rs = s.execute()
+        user = rs.fetchone()
+
+        if user is None:
+        #if not user:
             # TODO: Make this fetch async rather than blocking
             graph = facebook.GraphAPI(cookie["access_token"])
             profile = graph.get_object("me")
@@ -73,7 +85,9 @@ class BaseHandler(tornado.web.RequestHandler):
             sql="REPLACE INTO users (id, name, profile_url, access_token) VALUES (?,?,?,?)"
             self.db.execute(sql, (profile["id"], profile["name"], profile["link"], cookie["access_token"]))
             users = Table('users', metadata, autoload=True)
-            user = users.select(users.c.id == profile["id"])
+            s = users.select(users.c.id == profile["id"])
+            rs = s.execute()
+            user = rs.fetchone()
 
         #elif user.access_token != cookie["access_token"]:
         elif user["access_token"] != cookie["access_token"]:
