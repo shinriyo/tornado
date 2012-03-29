@@ -1,15 +1,16 @@
 Tornado example from python-sdk
 *Python2.7
 
+first
 set your OS environment variable
 
-[Windows}
-setenv FB_ID="your facebook develper ID"
-setenv FB_SECRET="your facebook develper FB_SECRET"
-
 [MacOSX}
+setenv FB_ID="your facebook develper ID"
+setenv FB_SECRET="your facebook develper secret code"
+
+[Windows}
 set FB_ID="your facebook develper ID"
-set FB_SECRET="your facebook develper FB_SECRET"
+set FB_SECRET="your facebook develper secret code"
 
 
 later
