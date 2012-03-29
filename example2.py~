@@ -28,14 +28,14 @@ import tornado.options
 import tornado.web
 
 from tornado.options import define, options
-#shinriyo
+#sugita
 from models import dbsession, engine, metadata #models.py
 from sqlalchemy import Table, Column, String, Integer, MetaData, select, func
 from sqlalchemy.sql import table, column
 
 define("port", default=8888, help="run on the given port", type=int)
-define("facebook_app_id", default="", help="Facebook Application ID")
-define("facebook_app_secret", default="", help="Facebook Application Secret")
+define("facebook_app_id", default="126171977500720", help="Facebook Application ID")
+define("facebook_app_secret", default="61c78829c13a1d846c11d2b3c0b2cb93", help="Facebook Application Secret")
 #define("mysql_host", help="MySQL database host")
 #define("mysql_database", help="MySQL database database")
 #define("mysql_user", help="MySQL database user")
@@ -51,7 +51,7 @@ class BaseHandler(tornado.web.RequestHandler):
             return None
         #user = self.db.get(
         #    "SELECT * FROM users WHERE id = %s", cookie["uid"])
-        #shinriyo
+        #sugita
         #user = engine.execute("SELECT * FROM users WHERE id = %s", cookie["uid"])
         #sql="SELECT * FROM users WHERE id = %s"
         #user = self.db.engine.execute(sql, (cookie["uid"]))
@@ -80,7 +80,7 @@ class BaseHandler(tornado.web.RequestHandler):
             #self.db.execute(
             #    "UPDATE users SET access_token = %s WHERE id = %s",
             #    cookie["access_token"], user.id)
-            #shinriyo
+            #sugita
             #self.db.execute("UPDATE users SET access_token = %s WHERE id = %s" % cookie["access_token"], user.id)
             sql="UPDATE users SET access_token = ? WHERE id = ?"
             self.db.execute(sql, (cookie["access_token"], user.id))

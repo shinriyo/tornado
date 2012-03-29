@@ -14,7 +14,7 @@ users = Table('users', metadata,
     Column('access_token', String(40)),
 )
 
-#users.create()
+users.create()
 
 Session = sessionmaker(bind=engine)
 dbsession = Session()
