@@ -1,14 +1,25 @@
-Tornado example from python-sdk
-*Python2.7
+================================================================
+Tornado example from python-sdk with SQLAlchemy
+================================================================
+
+[requirement]
+Python2.7 (Python3.x is not supported)
+Tornado
+SQLAlchemy
 
 first
 set your OS environment variable
 
-[MacOSX}
+[MacOSX]
+*bash (default shell)
+export FB_ID="your facebook develper ID"
+export FB_SECRET="your facebook develper secret code"
+
+*if tcsh
 setenv FB_ID="your facebook develper ID"
 setenv FB_SECRET="your facebook develper secret code"
 
-[Windows}
+[Windows]
 set FB_ID="your facebook develper ID"
 set FB_SECRET="your facebook develper secret code"
 
