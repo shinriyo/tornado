@@ -30,7 +30,7 @@ import tornado.web
 
 from tornado.options import define, options
 #shinriyo
-from models import dbsession, engine, metadata #models.py
+from models import dbsession, engine, metadata
 from sqlalchemy import Table, Column, String, Integer, MetaData, select, func
 from sqlalchemy.sql import table, column
 import os
@@ -38,8 +38,10 @@ import os
 FB_ID = os.environ.get('FB_ID', "default")
 FB_SECRET = os.environ.get('FB_SECRET', "default")
 define("port", default=8888, help="run on the given port", type=int)
-define("facebook_app_id", default=FB_ID , help="Facebook Application ID")
-define("facebook_app_secret", default=FB_SECRET, help="Facebook Application Secret")
+define("facebook_app_id", default=FB_ID, help="Facebook Application ID")
+define("facebook_app_secret",
+    default=FB_SECRET,
+    help="Facebook Application Secret")
 #define("mysql_host", help="MySQL database host")
 #define("mysql_database", help="MySQL database database")
 #define("mysql_user", help="MySQL database user")
@@ -82,8 +84,9 @@ class BaseHandler(tornado.web.RequestHandler):
             #    profile["link"], cookie["access_token"])
             #user = self.db.get(
             #    "SELECT * FROM users WHERE id = %s", profile["id"])
-            sql="REPLACE INTO users (id, name, profile_url, access_token) VALUES (?,?,?,?)"
-            self.db.execute(sql, (profile["id"], profile["name"], profile["link"], cookie["access_token"]))
+            sql = "REPLACE INTO users (id, name, profile_url, access_token) VALUES (?,?,?,?)"
+            self.db.execute(sql,
+                (profile["id"], profile["name"], profile["link"], cookie["access_token"]))
             users = Table('users', metadata, autoload=True)
             s = users.select(users.c.id == profile["id"])
             rs = s.execute()
@@ -96,7 +99,7 @@ class BaseHandler(tornado.web.RequestHandler):
             #    cookie["access_token"], user.id)
             #shinriyo
             #self.db.execute("UPDATE users SET access_token = %s WHERE id = %s" % cookie["access_token"], user.id)
-            sql="UPDATE users SET access_token = ? WHERE id = ?"
+            sql = "UPDATE users SET access_token = ? WHERE id = ?"
             self.db.execute(sql, (cookie["access_token"], user.id))
         return user
 
@@ -126,4 +129,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-

@@ -2,7 +2,7 @@ from sqlalchemy import create_engine, Column, Integer, Table, String
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 
-database_url = 'sqlite:///example2.db'
+database_url = 'sqlite:///example.db'
 engine = create_engine(database_url)
 Base = declarative_base(engine)
 metadata = Base.metadata
@@ -14,8 +14,10 @@ users = Table('users', metadata,
     Column('access_token', String(40)),
 )
 
-#users.create()
+try:
+    users.create()
+except:
+    pass
 
 Session = sessionmaker(bind=engine)
 dbsession = Session()
-

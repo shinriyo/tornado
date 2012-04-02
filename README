@@ -6,6 +6,7 @@ Tornado example from python-sdk with SQLAlchemy
 Python2.7 (Python3.x is not supported)
 Tornado
 SQLAlchemy
+pep8
 
 first
 set your OS environment variable
