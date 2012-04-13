@@ -1,5 +1,5 @@
 ================================================================
-Tornado example from python-sdk with SQLAlchemy
+Tornado example from facebook-sdk with SQLAlchemy
 ================================================================
 
 [requirement]
@@ -8,8 +8,11 @@ Tornado
 SQLAlchemy
 pep8
 
-first
+[first]
 set your OS environment variable
+
+[Facebook Development setting]
+http://localhost:8888/
 
 [MacOSX]
 *bash (default shell)
